@@ -22,4 +22,16 @@ class ArticleMutator
 
         return $article;
     }
+
+    public function resolveAddComment($rootValue, array $args, GraphQLContext $context)
+    {
+        $article = \App\Article::find($args["comment"]["articleId"]);
+        $comment = new \App\Comment([
+            "text" => $args["comment"]["text"]
+        ]);
+        $comment->user()->associate($context->user());
+        $article->comments()->save($comment);
+
+        return $comment;
+    }
 }

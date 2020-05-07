@@ -1,0 +1,23 @@
+{
+    "sqltools.connections": [
+        {
+            "database": "${workspaceFolder}/database/database.sqlite",
+            "dialect": "SQLite",
+            "name": "BBBEE"
+        },
+        {
+            "database": "${workspaceFolder}/database/database.sqlite",
+            "dialect": "SQLite",
+            "isActive": true,
+            "isConnected": true,
+            "name": "laravel-graphql"
+        },
+        {
+            "database": "./database/database.sqlite",
+            "dialect": "SQLite",
+            "isActive": true,
+            "isConnected": true,
+            "name": "laravel-graphql"
+        }
+    ]
+}

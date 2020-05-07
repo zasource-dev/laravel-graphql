@@ -1,3 +1,10 @@
+type Comment {
+    id: ID!
+    text: String!
+    user: User! @belongsTo(relation: "user")
+    article: Article! @belongsTo(relation: "article")
+}
+
 type User {
     id: ID!
     name: String!
@@ -10,6 +17,7 @@ type Article {
     title: String!
     content: String!
     author: User! @belongsTo(relation: "user")
+    comments: [Comment!]! @hasMany
 }
 
 type Query {
@@ -20,9 +28,18 @@ type Query {
     me: User @auth(guard: "api")
 }
 
+input AddCommentInput {
+    articleId: Int!
+    text: String!
+}
+
 type Mutation {
     createArticle(title: String!, content: String!): Article
         @field(resolver: "ArticleMutator@create")
+        @middleware(checks: ["auth:api"])
+
+    addComment(comment: AddCommentInput!): Comment
+        @field(resolver: "ArticleMutator@resolveAddComment")
         @middleware(checks: ["auth:api"])
 
     createUser(
