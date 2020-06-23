@@ -1,0 +1,21 @@
+type Comment {
+    id: ID!
+    text: String!
+    user: User! @belongsTo(relation: "user")
+    article: Article! @belongsTo(relation: "article")
+}
+
+type User {
+    id: ID!
+    name: String!
+    email: String!
+    articles: [Article!]! @hasMany
+}
+
+type Article {
+    id: ID!
+    title: String!
+    content: String!
+    author: User! @belongsTo(relation: "user")
+    comments: [Comment!]! @hasMany
+}
